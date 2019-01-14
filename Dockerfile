@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 ENV DEBIAN_FRONTEND=noninteractive
 RUN \
@@ -21,12 +21,12 @@ RUN \
     && mkdir -p /etc/confd/conf.d \
     && mkdir -p /etc/confd/templates \
     && touch /etc/confd/confd.toml \
-    && rm /etc/php/7.0/apache2/conf.d/* \
-    && rm /etc/php/7.0/cli/conf.d/* \
+    && rm /etc/php/7.3/apache2/conf.d/* \
+    && rm /etc/php/7.3/cli/conf.d/* \
     && phpenmod -s ALL opcache pgsql \
     && rm /etc/apache2/conf-enabled/* \
     && rm /etc/apache2/mods-enabled/* \
-    && a2enmod mpm_prefork rewrite php7.0 env dir auth_basic authn_file authz_user authz_host access_compat \
+    && a2enmod mpm_prefork rewrite php7.3 env dir auth_basic authn_file authz_user authz_host access_compat \
     && rm /etc/apache2/sites-enabled/000-default.conf
 
 EXPOSE 8080
@@ -56,7 +56,7 @@ COPY confd/templates/phppgadmin.config.inc.php.tmpl /etc/confd/templates/
 COPY ports.conf /etc/apache2/ports.conf
 COPY apache2-mods/mpm_prefork.conf /etc/apache2/mods-available/mpm_prefork.conf
 
-COPY apache2-mods/php7.0.conf /etc/apache2/mods-available/php7.0.conf
+COPY apache2-mods/php7.3.conf /etc/apache2/mods-available/php7.3.conf
 
 COPY apache2-mods/remoteip.conf /etc/apache2/mods-available/remoteip.conf
 RUN a2enmod remoteip
