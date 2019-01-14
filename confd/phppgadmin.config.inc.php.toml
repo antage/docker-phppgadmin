@@ -1,0 +1,8 @@
+[template]
+src = "phppgadmin.config.inc.php.tmpl"
+dest = "/etc/phppgadmin/config.inc.php"
+mode = "0644"
+
+keys = [
+    "/pgsql/host"
+]
